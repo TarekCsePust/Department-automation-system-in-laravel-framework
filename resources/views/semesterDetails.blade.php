@@ -29,7 +29,7 @@
   <div class="table-responsive">
         <table class="table table-bordered table-striped table-highlight">
             <thead>
-                <th style="width:50px;" >Session</th>
+                <th style="width:90px;" >Session</th>
                  <th style="width:50px;" >Semester</th>
                    <th>Starting-Date</th>
                         <th>Ending-Date</th>
@@ -101,7 +101,9 @@
          <th>Semester</th>
          <th>Class Starting date</th>
          <th>Class Ending date</th>
-         <th>Delete</th>
+         <th>Result</th>
+        <th>Update</th>
+         <!--<th>Delete</th>-->
       </tr>
     </thead>
     <tbody>
@@ -114,9 +116,25 @@
         <td>{{$detail['semester']}}</td>
         <td>{{$detail['startingDate']}}</td>
         <td>{{$detail['endingDate']}}</td>
-        <form method="POST" action="{{url('deleteSemesterDetail')}}">
+        <td>
+          @if($detail['result'])
+            Published
+          @else
+            Not publish
+          @endif
+        </td>
+        <!--
+           <form method="POST" action="{{url('publishResult')}}">
            {{csrf_field()}}
-           <td><button class="btn btn-danger">Delete</button></td>
+           <td><button class="btn btn-primary">Publish</button></td>
+           <input type="hidden" name="id" value="{{$detail['id']}}">
+          </form>
+        -->
+        
+    
+        <form method="POST" action="{{url('updateSemesterDetail')}}">
+           {{csrf_field()}}
+           <td><button class="btn btn-info">Update</button></td>
            <input type="hidden" name="id" value="{{$detail['id']}}">
         </form>
        

@@ -26,7 +26,7 @@
          <th>Starting-Date</th>
          <th>Ending-Date</th>
          <th>View</th>
-         <th>Delete</th>
+         <!--<th>Delete</th>-->
  
       </tr>
     </thead>
@@ -37,20 +37,26 @@
         <td>{{$i++}}</td>
         <td>{{$examDate['session']}}</td>
         <td>{{$examDate['semester']}}</td>
-         <td>{{$examDate['examType']}}</td>
+        <td>
+          @if($examDate['examType'])
+              Theory
+          @else
+              Lab
+          @endif
+       </td>
         <td>{{$examDate['startingDate']}}</td>
         <td>{{$examDate['endingDate']}}</td>
        
         <td><a href="{{URL::to('examDetails/'.$examDate['id'])}}"><button class="btn bg-primary">View</button></a></td>
         
-        <td>
+        <!--<td>
           <form method="POST" action="{{url('deleteExamDetail')}}">
             {{csrf_field()}}
           <input type="hidden" name="id" value="{{$examDate['id']}}">
 
            <button class="btn btn-danger">Delete</button>
           </form>
-        </td>
+        </td>-->
       
       </tr>
       @endforeach

@@ -19,7 +19,7 @@ class semesterDetailsController extends Controller
     	$sessions = Session::get();
     	$semesters = Semester::get();
 
-        $details = SemesterDetail::get();
+        $details = SemesterDetail::get()->where('resultPublish','0');
         $semesterDetails = array();
 
         foreach($details as $detail)
@@ -27,14 +27,22 @@ class semesterDetailsController extends Controller
             $session = Session::find($detail->sessionId);
             $semester = Semester::find($detail->semesterId);
 
-
-              array_push($semesterDetails,[
+            if(!$session || !$semester)
+            {
+                $detail->delete();
+            }
+            else
+            {
+                 array_push($semesterDetails,[
                 "id"=>$detail->id,
                 "session"=>$session->session,
                 "semester"=>$semester->semester,
                 "startingDate"=>$detail->startingDate,
-                "endingDate"=>$detail->endingDate
+                "endingDate"=>$detail->endingDate,
+                "result"=>$detail->resultPublish
                 ]);
+            }
+             
 
         }
         //return  $semesterDetails;
@@ -71,11 +79,36 @@ class semesterDetailsController extends Controller
     	return redirect('semesterDetails');
     }
 
-
-    public function deleteSemesterDetail(Request $request)
+    public function publishResult(Request $request)
     {
         $detail = SemesterDetail::find($request->id);
-        $detail->delete();
+        $detail->resultPublish = 1;
+        $detail->save();
+        return redirect('semesterDetails');
+    }
+    public function updateSemesterDetail(Request $request)
+    {
+        $detail = SemesterDetail::find($request->id);
+     
+        $sessions = Session::get();
+        $semesters = Semester::get();
+        //$session = Session::find($detail->sessionId);
+        //$semester = Semester::find($detail->semesterId);
+      
+        return view('editSemesterDetail',compact('detail','sessions','semesters'));
+    }
+
+    public function changeSemesterDetail(Request $request)
+    {
+
+        $detail = SemesterDetail::find($request->id);
+
+        $detail->sessionId=$request->session;
+        $detail->semesterId=$request->semester;
+        $detail->startingDate=$request->startingDate;
+        $detail->endingDate = $request->endingDate;
+        $detail->resultPublish = $request->result;
+        $detail->save();
         return redirect('semesterDetails');
     }
 }

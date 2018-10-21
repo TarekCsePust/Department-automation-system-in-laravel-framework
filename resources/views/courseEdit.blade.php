@@ -40,19 +40,19 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="course_title">Course type:</label>
       <div class="col-sm-10">
-        @if($course->TheoryLab=="Theory")          
+        @if($course->TheoryLab)          
         <label class="radio-inline">
-      <input type="radio" value="Theory" name="type" required checked="true">Theory
+      <input type="radio" value="1" name="type" required checked="true">Theory
     </label>
     <label class="radio-inline">
-      <input type="radio" value="Lab" name="type" required>Lab
+      <input type="radio" value="0" name="type" required>Lab
     </label>
       @else
       <label class="radio-inline">
-      <input type="radio" value="Theory" name="type" required>Theory
+      <input type="radio" value="1" name="type" required>Theory
     </label>
     <label class="radio-inline">
-      <input type="radio" value="Lab" checked="true" name="type" required>Lab
+      <input type="radio" value="0" checked="true" name="type" required>Lab
     </label>
     @endif
     
@@ -72,13 +72,13 @@
 
 
 
-<form method="post" action="{{url('courseRemove')}}">
+<!--<form method="post" action="{{url('courseRemove')}}">
   {{csrf_field()}}
   <input type="hidden" name="id" value="{{$course->id}}">
   <button type="submit" class="btn btn-danger">Delete</button>
   
 </form>
- 
+-->
 
 
 

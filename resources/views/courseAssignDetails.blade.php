@@ -15,14 +15,14 @@
     <div class="panel-body">
      
      
-    	<h3>Course assign details</h3>
+    	<h3>Course Tracking</h3>
     	<table class="table table-striped">
     <thead>
       <tr>
          <th>No</th>
          <th>Session</th>
          <th>Semester</th>
-         <th>Update</th>
+         
          <th>Course Teacher</th>
       </tr>
     </thead>
@@ -35,7 +35,7 @@
         <td>{{$assign["session"]}}</td>
         <td>{{$assign["semester"]}}</td>
 
-        <td><a href="{{URL::to('assignSessionEdit/'.$assign['id'])}}"> <button class="btn btn-info">Update</button></a></td>
+       
 
         <td> <a href="{{URL::to('courseTeacherTracking/'.$assign['id'])}}"> <button class="btn btn-info">View</button></a></td>
       </tr>

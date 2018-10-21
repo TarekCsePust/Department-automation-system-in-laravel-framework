@@ -9,6 +9,8 @@ use App\Course;
 use App\ExamDate;
 use App\ExamSchedule;
 use DB;
+use App\User;
+use App\ExamDuty;
 
 class examScheduleController extends Controller
 {
@@ -22,8 +24,11 @@ class examScheduleController extends Controller
     {
     	$sessions = Session::get();
     	$semesters = Semester::get();
-    	$courses = Course::get();
-    	return view('entryExamSchedule',compact('sessions','semesters','courses'));
+    	$lavCourses = Course::get()->where('TheoryLab', '0');
+      $thCourses = Course::get()->where('TheoryLab', '1');
+      $teachers = User::get()->where('position','Teacher');
+
+    	return view('entryExamSchedule',compact('sessions','semesters','thCourses','lavCourses','teachers'));
     }
 
     public function insertExamDate(Request $request)
@@ -38,9 +43,11 @@ class examScheduleController extends Controller
         'date' => 'required',
         'time' => 'required',
         'course' => 'required',
+        'duty' => 'required',
       
 
         ]);
+
         $examSchedule = new ExamSchedule;
         $date = strtotime($request->endingDate);
         $day   = date('d',$date);
@@ -53,7 +60,7 @@ class examScheduleController extends Controller
         $month = date('m',$date);
         $year  = date('Y',$date);
         $startTime = $day."-".$month."-".$year;
-
+        //return $request->duty;
         //return $startTime;
         $id = DB::table('exam_dates')->insertGetId(
          ['sessionId' =>$request->session, 'semesterId' =>$request->semester,'startingDate'=>$startTime,'endingDate'=>$endTime,
@@ -63,20 +70,42 @@ class examScheduleController extends Controller
         $dates = $request->date;
         $times = $request->time;
         $courses = $request->course;
+        $dutys = $request->duty;
+        //return $dutys;
         for($i=0;$i<count($dates);$i++)
-        {
-             $examSchedule = new ExamSchedule;
-             $examSchedule->examDateId=$id;
+        {    //$examduty = new ExamDuty;
+             //$examSchedule = new ExamSchedule;
+             //$examSchedule->examDateId=$id;
               $date = strtotime($dates[$i]);
               $day   = date('d',$date);
               $month = date('m',$date);
               $year  = date('Y',$date);
               $date = $day."-".$month."-".$year;
 
-             $examSchedule->date = $date;
-             $examSchedule->time = $times[$i];
-             $examSchedule->courseId = $courses[$i];
-             $examSchedule->save();
+             //$examSchedule->date = $date;
+             //$examSchedule->time = $times[$i];
+             //$examSchedule->courseId = $courses[$i];
+
+              $examid = DB::table('exam_schedules')->insertGetId(
+         ['examDateId' =>$id, 'date' =>$date,'time'=>$times[$i],'courseId'=>$courses[$i]]
+        );
+
+            
+            
+            
+              for($j=0;$j<count($dutys[$i]);$j++)
+              {  
+                   if($dutys[$i][$j]){
+                   $examduty = new ExamDuty;
+                   $examduty->teacherId = $dutys[$i][$j];
+                   $examduty->examScheduleId = $examid;
+                   $examduty->save();
+                 }
+              }
+            
+            //$examduty->teacherId = $dutys[$i];
+              
+            // $examSchedule->save();
         }
        
 

@@ -25,6 +25,7 @@
          <th>Time</th>
          <th>Course Code</th>
          <th>Course Title</th>
+         <th>Duty</th>
          
  
       </tr>
@@ -38,6 +39,7 @@
         <td>{{$examDetail['time']}}</td>
         <td>{{$examDetail['course_code']}}</td>
         <td>{{$examDetail['course_title']}}</td>
+         <td>{{$examDetail['teacher']}}</td>
       </tr>
       @endforeach
    

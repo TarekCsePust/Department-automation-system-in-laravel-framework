@@ -19,6 +19,7 @@ class CreateSemesterDetailsTable extends Migration
             $table->integer('semesterId');
             $table->string('startingDate');
             $table->string('endingDate');
+            $table->integer('resultPublish')->default(0);
             $table->timestamps();
         });
     }

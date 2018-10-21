@@ -14,11 +14,16 @@
   <div class="panel panel-default">
     <div class="panel-heading">Manage</div>
     <div class="panel-body">
+
+
     	
      
        <form class="form-horizontal" action="{{url('courseTeacher')}}" style="margin-left: 20px;" method="post">
 
+
+
         {{csrf_field()}}
+        <input type="hidden" name="courseTeacherTrackingId" value="{{$cttId}}">
     <div class="form-group">
 
       <label class="control-label" for="internal">Internal:</label>

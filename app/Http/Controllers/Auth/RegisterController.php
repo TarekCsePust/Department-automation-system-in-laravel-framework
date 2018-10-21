@@ -62,6 +62,7 @@ class RegisterController extends Controller
             'department' => 'required|string|max:255',
             'univesityName' => 'required|string|max:255',
             'contactNumber' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
         ]);
     }
 
@@ -81,6 +82,7 @@ class RegisterController extends Controller
              'department' => $data['department'],
              'univesityName'=> $data['univesityName'],
              'contactNumber' => $data['contactNumber'],
+             'address' => $data['address'],
         ]);
     }
 

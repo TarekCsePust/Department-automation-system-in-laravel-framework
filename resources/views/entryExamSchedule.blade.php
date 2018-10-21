@@ -10,11 +10,18 @@
 
 @section('body')
 <div class="container">
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+
+  </script>
   
   <div class="panel panel-default">
     <div class="panel-heading">Manage</div>
     <div class="panel-body">
-    	<h3>Insert New Exam Schedule</h3>
+    	<h3>New Exam Schedule</h3>
       @include('layouts.error')
 
 
@@ -65,10 +72,10 @@
        <label class="control-label col-sm-2">Exam Type:</label>
       <div class="col-sm-10">          
         <label class="radio-inline">
-      <input type="radio" name="ExamType" value="Lab">Lab
+      <input type="radio" name="ExamType" id="lab" value="0">Lab
       </label>
     <label class="radio-inline">
-      <input type="radio" name="ExamType" value="Theory">Theory
+      <input type="radio" name="ExamType" id="theory"  value="1">Theory
     </label>
       </div>
     
@@ -76,7 +83,7 @@
 
 
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Number Of Exam:</label>
+      <label class="control-label col-sm-2" for="pwd">Exam Slot:</label>
       <div class="col-sm-10">          
       <select class="form-control" name="noExam" onchange=" addInput();" id="noExam">
         <option selected="1" value="">select</option>
@@ -108,11 +115,11 @@
   <div class="table-responsive">
         <table class="table table-bordered table-striped table-highlight">
             <thead>
-                <th style="width:60px;" >Date</th>
-                 <th style="width:60px;" >Time</th>
-                   <th style="width: 200px;">Course</th>
-                      
-               
+                <th style="width:10px;" >Date</th>
+                 <th style="width:20px;" >Time</th>
+                   <th style="width:150px;">Course</th>
+             
+                  <th style="width:200px;">Duties</th>
          
             </thead>
             <tbody id="inputs">
@@ -156,15 +163,51 @@
 
 
   <script type="text/javascript">
-    function addInput(){
-      var amount = $('#noExam').val();
-      var inputs = $('#inputs').empty();
-      for(i = 0; i < amount; i++) {
-        inputs.append(
+ 
+   
 
-          '<tr><td style="width:10px;"><input type="date" class="form-control" name="date[]"></td><td style="width:10px;"><input type="text" class="form-control" name="time[]"></td><td style="width:10px;"><select class="form-control" name="course[]" ><option selected="1" value="">select</option>@foreach($courses as $course)<option value="{{$course->id}}">{{$course->courseTitle}}{{' - '}}{{$course->courseCode}}</option>@endforeach</select></td></tr>'
+
+    function addInput(){
+
+   
+      var amount = $('#noExam').val();
+      var type=1;
+     if ($("#theory").is(":checked")) {
+                  type=1;
+                 console.log("theory");
+               }else
+               if ($("#lab").is(":checked")) {
+                  type =0;
+                 //console.log("lab");
+               }
+      
+
+        console.log(type);
+      var inputs = $('#inputs').empty();
+
+
+      
+      for(i = 0; i < amount; i++) {
+
+        //$d = i;
+
+        if(type)
+        {
+           inputs.append(
+
+          '<tr><td style="width:10px;"><input type="date" class="form-control" name="date[]"></td><td style="width:10px;"><input type="text" class="form-control" name="time[]"></td><td style="width:10px;"><select class="form-control" name="course[]" ><option selected="1" value="">select</option>@foreach($thCourses as $course)<option value="{{$course->id}}">{{$course->courseTitle}}{{' - '}}{{$course->courseCode}}</option>@endforeach</select></td><td style="width:10px;"><select  class="form-control js-example-basic-multiple"   name="duty['+i+'][]" multiple="multiple"><option selected="1" value="">select</option>@foreach($teachers as $teacher)<option value="{{$teacher->id}}">{{$teacher->name}}</option>@endforeach</select></td></tr>'
 
           );
+        }
+        else
+        {
+           inputs.append(
+
+         '<tr><td style="width:10px;"><input type="date" class="form-control" name="date[]"></td><td style="width:10px;"><input type="text" class="form-control" name="time[]"></td><td style="width:10px;"><select class="form-control" name="course[]" ><option selected="1" value="">select</option>@foreach($lavCourses as $course)<option value="{{$course->id}}">{{$course->courseTitle}}{{' - '}}{{$course->courseCode}}</option>@endforeach</select></td><td style="width:20px;"><select  class="form-control js-example-basic-multiple col-lg-2" multiple="multiple" name="duty['+i+'][]"><option selected="1" value="">select</option>@foreach($teachers as $teacher)<option value="{{$teacher->id}}">{{$teacher->name}}</option>@endforeach</select></td></tr>'
+
+          );
+        }
+       
       }
     }
   </script>

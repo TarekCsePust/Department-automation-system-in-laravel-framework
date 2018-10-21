@@ -34,7 +34,9 @@ Route::post('/deleteExamDetail','examScheduleController@deleteExamDetail');
 
 Route::get('/semesterDetails','semesterDetailsController@getSemesterDetails');
 Route::post('/addSemesterDetail','semesterDetailsController@addSemesterDetail');
-Route::post('/deleteSemesterDetail','semesterDetailsController@deleteSemesterDetail');
+Route::post('/updateSemesterDetail','semesterDetailsController@updateSemesterDetail');
+Route::post('/publishResult','semesterDetailsController@publishResult');
+Route::post('/changeSemesterDetail','semesterDetailsController@changeSemesterDetail');
 
 
 
@@ -93,6 +95,7 @@ Route::get('/semester',
 Route::get('/courseAssign','courseAssignController@index');
 
 Route::post('/courseAssignToSemester','courseAssignController@assignSemesterCourses');
+Route::post('/importCourseAssignToSemester','courseAssignController@importCourseAssign');
 
 Route::get('/courseAssignDetails','courseAssignController@getAllAssignSession');
 
@@ -104,7 +107,8 @@ Route::post('/assignRemove','courseAssignController@assignDelete');
 
 Route::get('/courseTeacherTracking/{id}','courseAssignController@getCourseTeacher');
 
-Route::get('/assignTeacher/{id}','courseAssignController@assignTeacher');
+//Route::get('/assignTeacher/{id}','courseAssignController@assignTeacher');
+Route::get('/assignTeacher','courseAssignController@assignTeacher');
 
 Route::post('/courseTeacher','courseAssignController@insertCourseTeacher');
 

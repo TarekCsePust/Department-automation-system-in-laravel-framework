@@ -86,7 +86,7 @@
 
           $(this).click(function(){
               $("#add").hide();
-              $("#delete").show();
+              //$("#delete").show();
               $("#update").show();
               var session = $(this).find('#sesn').val();
               $("#seson").val(session);
@@ -160,8 +160,8 @@
       });
 
 
-      $("#delete").click(function() {
-        /* Act on the event */
+     /* $("#delete").click(function() {
+        
 
           var id = $("#seson_id").val();
            $("#add").hide();
@@ -175,7 +175,7 @@
         });
 
 
-      });
+      });*/
 
     });
 

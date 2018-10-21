@@ -10,12 +10,20 @@
 
 @section('body')
 <div class="container">
+
+   <script type="text/javascript">
+
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+
+  </script>
   
   <div class="panel panel-default">
     <div class="panel-heading">Manage</div>
     <div class="panel-body">
         
-       <div class="col-lg-offset-3 col-lg-6">
+       <div class="col-lg-offset-1 col-lg-10">
      <form class="form-horizontal" action="{{url('assignChanges')}}" method="post">
                {{csrf_field()}}
     <input type="hidden" name="id" value="{{$assign->id}}">
@@ -56,17 +64,45 @@
            
             </select>
      </div>
+     <div  class="form-group" >
+       <label for="course">Course:</label>
+       <select  class="js-example-basic-multiple col-lg-12" name="course[]" multiple="multiple">
+            
+              @foreach($allCourse as $course)
+                 <?php $i=0; ?>
+              @foreach($assignCourses as $ac)
+                @if($ac->courseId==$course->id)
+                  {{$i=1}}
+                   <option selected="1"  value="{{$course->id}}">
+                  
+                {{$course->courseTitle}}{{". "}}{{$course->courseCode}}
+              </option>
+
+                @endif
+              @endforeach
+              @if(!$i)
+                 <option  value="{{$course->id}}">
+                  
+                {{$course->courseTitle}}{{". "}}{{$course->courseCode}}
+              </option>
+              @endif
+
+              @endforeach
+            </select>
+     </div>
      
       <div class="col-lg-3" style="margin-left: 50px;">
           <button type="submit" class="btn btn-info">Save changes</button>
       </div>
   </form>
+  <!--
 <form method="post" action="{{url('assignRemove')}}">
   {{csrf_field()}}
   <input type="hidden" name="id" value="{{$assign->id}}">
   <button type="submit" class="btn btn-danger">Delete</button>
   
 </form>
+-->
  
 </div>
 </div>

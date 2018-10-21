@@ -51,7 +51,11 @@
             <td>{{$course->courseTitle}}
                       <input type="hidden" id="courseTitle" value="{{$course->courseTitle}}">
                   </td>
-            <td>{{$course->TheoryLab}}
+            <td>@if($course->TheoryLab)
+                    Theory
+                @else
+                    Lab
+                @endif
                       <input type="hidden" id="TheoryLab" value="{{$course->TheoryLab}}">
                   </td>
             <td>{{$course->credit}}
@@ -102,8 +106,8 @@
     <input type="text" class="form-control" id="course_title" placeholder="Enter course title" name="course_title" required><br>
 
      <b>Course Type:</b>
-     <input type="radio" name="optradio" id="theory" value="Theory" required>Theory
-     <input type="radio" name="optradio" id="lab" value="Lab" required>Lab
+     <input type="radio" name="optradio" id="theory" value="1" required>Theory
+     <input type="radio" name="optradio" id="lab" value="0" required>Lab
      <br>
 
      <br>
@@ -131,11 +135,11 @@
                var credit = $("#course_credit").val();
                var type = "";
                 if ($("#theory").is(":checked")) {
-                  type="Theory";
+                  type="1";
                  //console.log("theory");
                }else
                if ($("#lab").is(":checked")) {
-                  type = "Lab";
+                  type = "0";
                  //console.log("lab");
                }
 

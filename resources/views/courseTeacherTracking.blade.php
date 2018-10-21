@@ -14,8 +14,9 @@
   <div class="panel panel-default">
     <div class="panel-heading">Manage</div>
     <div class="panel-body">
-     
-      
+
+    <a href="{{URL::to('/courseAssignDetails')}}"><button class="btn btn-primary">Back</button></a>
+    
     	<h3>Course Teachers</h3>
     	<table class="table table-striped">
     <thead>
@@ -41,11 +42,53 @@
         <td>{{$courseTeacher["courseTitle"]}}</td>
         <td>{{$courseTeacher["internal"]}}</td>
         <td>{{$courseTeacher["external"]}}</td>
-        <td>{{$courseTeacher["IQS"]}}</td>
-        <td>{{$courseTeacher["EQS"]}}</td>
-        <td>{{$courseTeacher["IQA"]}}</td>
-        <td>{{$courseTeacher["EQA"]}}</td>
-        <td><a href="{{URL::to('assignTeacher/'.$courseTeacher['id'])}}"> <button class="btn btn-info">Update</button></a></td>
+        <td>
+          @if($courseTeacher["IQS"]=="Yes")
+
+             <i><span class="glyphicon glyphicon-ok"></span></i>
+          @else
+
+             <i> <span class="glyphicon glyphicon-remove"></span></i>
+          @endif
+        </td>
+        <td>
+          @if($courseTeacher["EQS"]=="Yes")
+
+              <i> <span class="glyphicon glyphicon-ok"></span></i>
+          @else
+
+             <i> <span class="glyphicon glyphicon-remove"></span></i>
+          @endif
+
+        </td>
+        <td>
+
+           @if($courseTeacher["IQA"]=="Yes")
+
+              <i> <span class="glyphicon glyphicon-ok"></span></i>
+          @else
+
+             <i> <span class="glyphicon glyphicon-remove"></span></i>
+          @endif
+
+        </td>
+        <td>
+           @if($courseTeacher["EQA"]=="Yes")
+
+              <i> <span class="glyphicon glyphicon-ok"></span></i>
+          @else
+
+             <i> <span class="glyphicon glyphicon-remove"></span></i>
+          @endif
+        </td>
+        <td>
+        <form action="{{url('assignTeacher')}}" method="get">
+          <input type="hidden" name="id" value="{{$courseTeacher['id']}}">
+          <input type="hidden" name="ctt" value="{{$ctt}}">
+          <button class="btn btn-info">Update</button></a>
+        </form>
+      </td>
+        <!--<a href="{{URL::to('assignTeacher/'.$courseTeacher['id'])}}"> <button class="btn btn-info">Update</button></a>-->
       </tr>
       @endforeach
     </tbody>

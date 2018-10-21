@@ -10,8 +10,8 @@
           <li class="dropdown-header">Academic</li>
           <li><a href="{{URL::to('/session')}}">Session</a></li>
           <li><a href="{{URL::to('/semester')}}">Semester</a></li>
-          <li><a href="{{URL::to('/semesterDetails')}}">Semester details</a></li>
-          <li><a href="{{URL::to('/entryExamDate')}}">Entry Exam</a></li>
+          <li><a href="{{URL::to('/semesterDetails')}}">Academic Calender</a></li>
+          <li><a href="{{URL::to('/entryExamDate')}}">Exam Schedule</a></li>
           <li class="divider"></li>
           <li class="dropdown-header">Courses</li>
           <li><a href="{{URL::to('/courseDetails')}}">Course Details</a></li>

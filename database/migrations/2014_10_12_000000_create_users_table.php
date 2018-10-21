@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('position');
            $table->string('department');
             $table->string('univesityName');
+            $table->string('address');
             $table->string('contactNumber');
             $table->rememberToken();
             $table->timestamps();
